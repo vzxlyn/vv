@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>darnelllll</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f3e8ff; /* Light lavender background */
+            color: #5e4b8a; /* Dark lavender text */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #d7bde2; /* Light lavender */
+            padding: 20px;
+            border-bottom: 2px solid #c39bd3; /* Slightly darker lavender */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #timeTogether, #umm what the sigma?!?, #music {
+            margin: 20px auto;
+            font-size: 1.3em;
+            background-color: #ffffff; /* White background for contrast */
+            border: 1px solid #e8d8f0; /* Light border */
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Centering and limiting width */
+        }
+
+        .text-box {
+            background-color: rgba(255, 255, 255, 0.8); /* Light background with transparency */
+            border: 2px solid #c39bd3; /* Border color */
+            border-radius: 8px; /* Rounded corners */
+            padding: 15px; /* Padding inside the box */
+            margin: 10px auto; /* Margin around the box to center it */
+            max-width: 500px; /* Maximum width for the box */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        footer {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #a86bc7; /* Lavender button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #9b5dc4; /* Darker lavender on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        #selectionPage {
+            display: none; /* Hide selection page initially */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .user-options {
+            display: flex; /* Use flexbox for horizontal layout */
+            justify-content: center; /* Center options */
+            margin-top: 10px;
+        }
+
+        .user-option {
+            background-color: #ffffff;
+            border: 2px solid #c39bd3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .user-option:hover {
+            transform: scale(1.05);
+        }
+
+        #chatContainer {
+            display: none; /* Hide chat container initially */
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffffff; /* White background for the chat area */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        #messagesList {
+            max-height: 300px; /* Limit height for scrolling */
+            overflow-y: auto; /* Scroll if content exceeds height */
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column; /* Arrange messages vertically */
+            align-items: flex-start; /* Align messages to the left */
+        }
+
+        .bubble {
+            border-radius: 15px;
+            padding: 10px 15px;
+            margin: 5px 0;
+            display: inline-block;
+            max-width: 80%; /* Limit bubble width */
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .bubble.user1 {
+            background-color: #d7bde2; /* Light lavender for user 1 */
+            align-self: flex-end; /* Align user 1 messages to the right */
+        }
+
+        .bubble.user2 {
+            background-color: #aac5e6; /* Light orange for user 2 */
+            align-self: flex-start; /* Align user 2 messages to the left */
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjust width for padding */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+        }
+
+        .input-container {
+            display: flex; /* Use flexbox for input and button */
+            align-items: center; /* Center align items */
+            margin-top: 10px;
+        }
+
+        .input-container button {
+            margin-left: 10px; /* Add space between input and button */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lock-content {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="lockScreen" class="overlay">
+        <div class="lock-content">
+            <h2>password !</h2>
+            <input type="password" id="passwordInput" placeholder="what could it be..." />
+            <button onclick="checkPassword()">unlock</button>
+        </div>
+    </div>
+
+    <header>
+        <h1>hii my loveee !</h1>
+    </header>
+
+    <section id="timeTogether">
+        <h2>time fliess zzz</h2>
+        <div class="text-box">
+            <p id="clock"></p>
+            <p id="startDate"></p>
+        </div>
+    </section>
+
+    <section id="umm what the sigma?!?">
+        <h2>coincidental or no??</h2>
+        <div class="text-box">
+            <p>sooo ig we met during stc?? weird event to meet someone but meh me lucky enough to be in the same group as you muahahaha got to know such an amazing person like youu :] heheeh im sorry for giving you false hopes back then made you think i had feelings for you i regret it sm boi T_T hehhehe luckily you're back to me now so its all goodd im writing this on 12/10/2024 9:25 p.m. we're together for 4 months almost 5 hehe :] thank you for choosing me and loving mee im soooooo lucky to have a bf like youuuu cause you're soooo lovinggg :] thats all for noww i love youu soo muchh </p>
+        </div>
+    </section>
+
+    <section id="music">
+        <h2>- now playing -</h2>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/43iIQbw5hx986dUEZbr3eN?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+        <!-- Button to open chat function -->
+        <button id="openChatButton" onclick="openChat()">hmm..</button>
+
+        <!-- Selection Page -->
+        <div id="selectionPage">
+            <h2>who are youu</h2>
+            <div class="user-options">
+                <div class="user-option" onclick="startChat('user1')">darnell</div>
+                <div class="user-option" onclick="startChat('user2')">vera</div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div id="chatContainer">
+            <div id="messagesList"></div>
+            <div class="input-container">
+                <input type="text" id="messageInput" placeholder="hmm what to sayy..." />
+                <input type="file" id="fileInput" accept="image/*,video/*" />
+                <button id="sendButton" onclick="sendMessage()">send</button>
+                <button id="recordButton" onclick="toggleRecording()">voice</button>
+            </div>
+            <audio id="audioPlayer" controls style="display: none;"></audio>
+        </div>
+
+    </section>
+
+    <footer>
+        <!-- Button to redirect to another page -->
+        <button onclick="window.location.href='redirected page.html'">another</button>
+    </footer>
+
+    <script>
+        const correctPassword = "170524"; // Set your desired password here
+
+    function checkPassword() {
+    const passwordInput = document.getElementById('passwordInput').value;
+    
+    if (passwordInput === correctPassword) {
+        document.getElementById('lockScreen').style.display = 'none'; // Hide lock screen
+    } else {
+        alert("incorrect ! how could u T-T");
+    }
+   }
+        let currentUser = '';
+        let mediaRecorder;
+        let audioChunks = [];
+
+        function openChat() {
+            document.getElementById('selectionPage').style.display = 'flex'; // Show selection page
+        }
+
+        function startChat(user) {
+            currentUser = user;
+            document.getElementById('selectionPage').style.display = 'none'; // Hide selection
+            document.getElementById('chatContainer').style.display = 'block'; // Show chat
+            loadMessages(); // Load existing messages
+            startRealTimeUpdates(); // Start real-time updates
+        }
+
+        const startDate = new Date(2024, 4, 17);
+
+        function updateclock() {
+            const now = new Date();
+            const timeDiff = now - startDate;
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('clock').innerText =
+                `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+
+            document.getElementById('startDate').innerText = `Started on: ${startDate.toLocaleDateString()}`;
+        }
+
+        setInterval(updateclock, 1000);
+        updateclock(); // Correct function call
+
+        function loadMessages() {
+            const messagesList = document.getElementById('messagesList');
+            const messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+            messagesList.innerHTML = messages.map(({ text, user, file }) => {
+                const bubbleClass = `bubble ${user === 'user1' ? 'user1' : 'user2'}`; // Determine bubble class based on user
+                const fileContent = file ? `<br><a href="${file}" target="_blank">View File</a>` : '';
+                return `<div class="${bubbleClass}">${text}${fileContent}</div>`;
+            }).join('');
+            messagesList.scrollTop = messagesList.scrollHeight; // Scroll to bottom
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const fileInput = document.getElementById('fileInput');
+            const message = messageInput.value;
+
+            if (message || fileInput.files.length > 0) {
+                const messages = JSON.parse(localStorage.getItem('messages')) || [];
+                const fileUrl = fileInput.files.length > 0 ? URL.createObjectURL(fileInput.files[0]) : null;
+
+                messages.push({ text: message || 'File sent', user: currentUser, file: fileUrl }); // Store both message text and user
+                localStorage.setItem('messages', JSON.stringify(messages));
+
+                messageInput.value = ''; // Clear the input field
+                fileInput.value = ''; // Clear the file input
+                loadMessages(); // Refresh the displayed messages
+            } else {
+                alert("Please enter a message or upload a file.");
+            }
+        }
+
+        function toggleRecording() {
+            if (!mediaRecorder) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+        }
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        sendAudioMessage(audioUrl);
+                        audioChunks = [];
+                    };
+                });
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            mediaRecorder = null;
+        }
+
+        function sendAudioMessage(audioUrl) {
+            const messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.push({ text: 'Voice message', user: currentUser, file: audioUrl }); // Store audio URL
+            localStorage.setItem('messages', JSON.stringify(messages));
+            loadMessages(); // Refresh the displayed messages
+        }
+
+        function startRealTimeUpdates() {
+            setInterval(loadMessages, 1000); // Check for new messages every second
+        }
+
+        // Load messages on page load
+        loadMessages();
+    </script>
+</body>
+
+</html>
